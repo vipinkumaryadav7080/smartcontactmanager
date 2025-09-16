@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login Failed</title>
+<style>
+body {
+	font-family: Arial;
+	background: #ffcccc;
+	text-align: center;
+	padding: 50px;
+}
+
+.box {
+	background: #fff;
+	border-radius: 10px;
+	padding: 30px;
+	display: inline-block;
+}
+
+h1 {
+	color: #e60000;
+}
+
+a {
+	text-decoration: none;
+	margin: 10px;
+	padding: 10px 20px;
+	border-radius: 5px;
+}
+
+.btn1 {
+	background: #e60000;
+	color: white;
+}
+
+.btn2 {
+	background: #ccc;
+	color: black;
+}
+</style>
+</head>
+<body>
+	<div class="box">
+		<h1>❌ Login Failed</h1>
+		<p>Invalid username or password.</p>
+		<a th:href="@{/signin}" class="btn1">🔑 Try Again</a> <a
+			th:href="@{/}" class="btn2">🏠 Home</a>
+	</div>
+</body>
+</html>

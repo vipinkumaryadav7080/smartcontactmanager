@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>home page</title>
+</head>
+<body>
+	<section>
+		<div class="card mr-3 ml-3">
+    <div class="card-body">
+      <h1 class="text-center">Update Your Contact</h1>
+      <div class="container-fluid mt-1">
+        <div class="col-md-8 offset-md-2">
+
+          <form enctype="multipart/form-data"
+                th:action="@{/user/process-update}"
+                th:object="${contact}"
+                method="POST"
+                class="mt-2">
+
+           <input type="hidden" th:field="*{cId}" />
+           
+            <!-- First Name -->
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-plus"></i>
+                </div>
+              </div>
+              <input type="text"
+                     id="firstName"
+                     th:value="${contact.name}"
+                     th:field="*{name}"
+                     placeholder="Enter name here"
+                     class="form-control"
+                     required
+                     th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" />
+            </div>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('name')}"
+                 th:errors="*{name}"></div>
+
+            <!-- Second Name -->
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fas fa-user-alt"></i>
+                </div>
+              </div>
+              <input type="text"
+                     id="secondName"
+                     th:value="${contact.secondName}"
+                     th:field="*{secondName}"
+                     placeholder="Enter Nick Name here"
+                     class="form-control"
+                     required
+                     th:classappend="${#fields.hasErrors('secondName') ? 'is-invalid' : ''}" />
+            </div>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('secondName')}"
+                 th:errors="*{secondName}"></div>
+
+            <!-- Phone -->
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-phone"></i></div>
+              </div>
+              <input type="text"
+                     id="phone"
+                     th:value="${contact.phone}"
+                     th:field="*{phone}"
+                     placeholder="Enter phone number here"
+                     class="form-control"
+                     required
+                     minlength="10"
+                     maxlength="12"
+                     pattern="[0-9]+"
+                     title="Only numbers allowed, length must be 10–12 digits" />
+            </div>
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('phone')}"
+                 th:errors="*{phone}"></div>
+
+            <!-- Email -->
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text">@</div>
+              </div>
+              <input type="email"
+                     id="email"
+                     th:value="${contact.email}"
+                     th:field="*{email}"
+                     placeholder="Enter Email here"
+                     class="form-control"
+                     required />
+            </div>
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}"></div>
+
+            <!-- Work -->
+            <div class="input-group mt-3">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-briefcase"></i></div>
+              </div>
+              <input type="text"
+                     id="work"
+                     th:value="${contact.work}"
+                     th:field="*{work}"
+                     placeholder="Enter Your work"
+                     class="form-control"
+                     required />
+            </div>
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('work')}"
+                 th:errors="*{work}"></div>
+
+            <!-- Description -->
+            <div class="form-group mt-3">
+              <textarea id="description"
+                       
+                        th:field="*{description}"
+                        placeholder="Enter contact description"
+                        class="form-control tinymce"
+                        required></textarea>
+            </div>
+            <div class="text-danger"
+                 th:if="${#fields.hasErrors('description')}"
+                 th:errors="*{description}"></div>
+
+            <!-- TinyMCE Script -->
+            <script src="https://cdn.tiny.cloud/1/8g82zflnqiozxhs6fmku7yf9gjtzzry63ak2q41aj0b554uy/tinymce/6/tinymce.min.js"
+                    referrerpolicy="origin"></script>
+            <script>
+              document.addEventListener('DOMContentLoaded', function () {
+                if (window.tinymce) {
+                  tinymce.init({
+                    selector: 'textarea.tinymce',
+                    height: 350,
+                    menubar: 'file edit view insert format tools table help',
+                    toolbar: 'undo redo | bold italic underline | fontselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | link image table | removeformat | fullscreen',
+                    plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table help wordcount',
+                    branding: false,
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                    // 🚀 FIX
+        forced_root_block: '',        // disable <p> wrapping
+        force_br_newlines: true,      // Enter = <br>
+        force_p_newlines: false,      // don't force <p>
+        valid_children: "+body[br]",  // allow <br> directly under body
+        entity_encoding: "raw",       // don't convert special chars
+        verify_html: false,           // don't auto-fix HTML
+        cleanup: false,               // don't clean up text
+        valid_elements: '*[*]',       // allow everything
+
+        setup: function (editor) {
+          editor.on('change', function () {
+            editor.save(); // update textarea for form submission
+          });
+                    }
+                  });
+                } else {
+                  console.error('TinyMCE not loaded');
+                }
+              });
+            </script>
+            
+            <div class="container mt-2 text-center">
+            <img style="height: 250px; width: 250px;" src="" class="img-fluid my_profile_picture" th:src="@{'/img/' + ${contact.image}}" alt="" />
+            </div>
+
+            <p class="text-secondary">Choose new profile pic</p>
+            <!-- Image -->
+            <div class="custom-file mt-2">
+              <input type="file"
+                     name="profileImage"
+                     id="image"
+                     accept="image/*"
+                      />
+            </div>
+            
+
+            <!-- Button -->
+            <div class="container text-center mt-2">
+              <button class="btn btn-outline-primary">Save Contact</button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+		
+	</section>
+</body>
+</html>

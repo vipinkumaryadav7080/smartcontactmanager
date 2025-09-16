@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>home page</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="https://checkout.razorpay.com/v1/checkout.js"></script> 
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+	<section>
+		<div class="container">
+		<div class="card">
+			<div class="card-body my-5">
+			<!-- Profile Image -->
+          <div class="container text-center">
+            <img style="height: 200px; width: 200px;" class="my_profile_picture"
+                 th:src="@{'/img/ramram.jpg'}"
+                 alt="profile photo" />
+          </div>
+			
+			<h1 class="text-center mt-3 text-secondary font-italic font-weight-light">
+			Start Adding your contact in cloud....
+			</h1>
+             <div class="text-center">
+              <a th:href="@{/user/add-contact}" class="btn btn-primary w-100 text-upercase text-center mt-4">Add New Contact</a>
+		
+		      <hr />
+		      <h3 class="my-3">Donate Us</h3>
+		      <!-- Amount Input -->
+    <input id="payment_field" type="number" class="payment_field form-control mb-3" placeholder="Enter Amount (INR)" />
+
+    <!-- Pay Button -->
+    <button onclick="paymentStart()" class="btn btn-success w-100">PAY</button>
+
+		      
+             </div>
+            </div>
+		</div>
+		
+		</div>
+		
+<script>
+ 
+$(document).ready(function () {
+  $(".item").removeClass("active");
+
+  let path = window.location.pathname.toLowerCase(); 
+  console.log("Current Path:", path);
+
+  if (path.includes("index")) {
+    $("#home-link").addClass("active");
+ }
+});
+ </script>
+		
+	</section>
+</body>
+</html>

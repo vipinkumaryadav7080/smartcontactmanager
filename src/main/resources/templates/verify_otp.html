@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>home page</title>
+</head>
+<body>
+	<section>
+		<div id="login">
+			<h3 class="text-center text-white pt-4">OTP Send your registered email..</h3>
+			<div class="container">
+				<div id="login-row"
+					class="row justify-content-center align-items-center">
+					<div id="login-column" class="col-md-5">
+						<div id="login-box" style="height: 220px;" class="col-md-12">
+						
+						<!-- email form	 -->
+						<div class="alert alert-success mt-3" role="alert">
+                        We have sent OTP to your email!
+                        </div>
+                        
+                        					 <!-- message box -->
+     <div th:if="${session.message}" class="container">
+       <div class="alert alert-danger my-2 text-center" role="alert">
+         <span th:text="${session.message}"></span>
+       </div>
+       <!-- remove session message -->
+       <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+     </div>
+                        
+						<form method="POST" action="" th:action="@{/verify-otp}">
+						<div class="form-group">
+						
+						<input type="number"
+						required="required"
+						name="otp"
+						 placeholder="Enter OTP here"
+						 class="form-control"
+						  />
+						
+						</div>
+						
+						<div class="container text-center mt-4">
+						
+						<button class="btn btn-success">Verify OTP</button>
+						
+						<a th:href="@{/signin}" class="btn btn-warning">Go To Login Page</a>
+						
+						</div>
+						
+						</form>
+						
+						
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+</body>
+</html>

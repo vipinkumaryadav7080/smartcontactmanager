@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="normal/base::layout(~{::section})">
+<head>
+  <meta charset="UTF-8" />
+  <title>Profile Page</title>
+</head>
+<body>
+  <section>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+
+          <!-- Profile Image -->
+          <div class="container text-center">
+            <img style="height: 200px; width: 200px;" class="my_profile_picture"
+                 th:src="@{'/img/' + ${user.imageUrl}}"
+                 alt="profile photo" />
+          </div>
+
+          <!-- User Info -->
+          <h1 class="text-center mt-3" th:text="${user.name}"></h1>
+
+          <table class="table text-center">
+            <thead>
+              <tr>
+                <th scope="col">#USERID</th>
+                <th scope="col">SCMUSER <span th:text="${user.id}"></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Email</th>
+                <td><span th:text="${user.email}"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Role</th>
+                <td><span th:text="${user.role}"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">Account Active</th>
+                <td><span th:text="${user.enabled}"></span></td>
+              </tr>
+              <tr>
+                <th scope="row">About you</th>
+                <td><span th:text="${user.about}"></span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Contact Actions -->
+          <div class="container mt-3" th:if="${contact != null}">
+            <div class="d-grid gap-2">
+              <a th:href="@{'/user/update-contact/' + ${contact.cId}}"
+                 onclick="return confirm('Are you sure you want to update this contact?')"
+                 class="btn btn-primary btn-lg">Update</a>
+
+              <a th:href="@{'/user/delete-contact/' + ${contact.cId}}"
+                 onclick="return confirm('Are you sure you want to delete this contact?')"
+                 class="btn btn-danger btn-lg">Delete</a>
+
+              <button type="button" class="btn btn-success btn-lg" onclick="shareContact()">Share</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    
+    	<script>	
+		$(document).ready(function () {
+
+ $(".item").removeClass("active");
+ 
+ $("#profile-link").addClass("active");
+ 
+});
+ </script>
+    
+  </section>
+</body>
+</html>
