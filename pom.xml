@@ -19,7 +19,7 @@
 	<description>Smart contact manager project using Spring Boot with Thymeleaf</description>
 
 	<properties>
-		<java.version>19</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<packaging>jar</packaging>
 
